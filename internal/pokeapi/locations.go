@@ -7,7 +7,7 @@ import (
 )
 
 func (c *Client) ListLocations(pageUrl *string) (PokeapiData, error) {
-	url := baseURL + "/location-area"
+	url := BaseURL + "/location-area"
 	if pageUrl != nil {
 		url = *pageUrl
 	}

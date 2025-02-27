@@ -1,11 +1,15 @@
 package main
 
-import "github.com/kylektaylor1/go-pokedex/internal/pokeapi"
+import (
+	"github.com/kylektaylor1/go-pokedex/internal/pokeapi"
+	"github.com/kylektaylor1/go-pokedex/internal/pokecache"
+)
 
 type Config struct {
 	pokeapiClient    pokeapi.Client
 	nextLocationsUrl *string
 	prevLocationsUrl *string
+	pokecache        *pokecache.Cache
 }
 
 type CliCommand struct {

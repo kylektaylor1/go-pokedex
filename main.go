@@ -8,13 +8,16 @@ import (
 	"time"
 
 	"github.com/kylektaylor1/go-pokedex/internal/pokeapi"
+	"github.com/kylektaylor1/go-pokedex/internal/pokecache"
 )
 
 func main() {
 	reader := bufio.NewScanner(os.Stdin)
 	client := pokeapi.NewClient(time.Second * 5)
+	cache := pokecache.NewCache(time.Second * 5)
 	config := &Config{
 		pokeapiClient: client,
+		pokecache:     cache,
 	}
 	commands := getCommands()
 	for {
