@@ -2,20 +2,18 @@ package main
 
 import (
 	"github.com/kylektaylor1/go-pokedex/internal/pokeapi"
-	"github.com/kylektaylor1/go-pokedex/internal/pokecache"
 )
 
 type Config struct {
 	pokeapiClient    pokeapi.Client
 	nextLocationsUrl *string
 	prevLocationsUrl *string
-	pokecache        *pokecache.Cache
 }
 
 type CliCommand struct {
 	name        string
 	description string
-	callback    func(*Config) error
+	callback    func(*Config, ...string) error
 }
 
 func getCommands() map[string]CliCommand {
@@ -39,6 +37,16 @@ func getCommands() map[string]CliCommand {
 			name:        "mapb",
 			description: "Get location areas - b",
 			callback:    commandMapb,
+		},
+		"explore": {
+			name:        "explore",
+			description: "Explore a location",
+			callback:    commandExpore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Catch a Pokemon",
+			callback:    commandCatch,
 		},
 	}
 }

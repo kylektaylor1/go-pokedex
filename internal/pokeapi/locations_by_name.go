@@ -7,19 +7,18 @@ import (
 	"net/http"
 )
 
-func (c *Client) ListLocations(pageUrl *string) (PokeapiData, error) {
+func (c *Client) LocationAreaByName(pageUrl *string) (PokeapiLocationAreaResp, error) {
 	url := BaseURL + "/location-area"
-
 	if pageUrl != nil {
 		url = *pageUrl
 	}
 
 	if val, ok := c.cache.Get(url); ok {
 		fmt.Println("hitting cache")
-		var pokedata PokeapiData
+		var pokedata PokeapiLocationAreaResp
 		unmErr := json.Unmarshal(val, &pokedata)
 		if unmErr != nil {
-			return PokeapiData{}, unmErr
+			return PokeapiLocationAreaResp{}, unmErr
 		}
 
 		return pokedata, nil
@@ -27,24 +26,24 @@ func (c *Client) ListLocations(pageUrl *string) (PokeapiData, error) {
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return PokeapiData{}, err
+		return PokeapiLocationAreaResp{}, err
 	}
 
 	res, err := c.httpClient.Do(req)
 	if err != nil {
-		return PokeapiData{}, err
+		return PokeapiLocationAreaResp{}, err
 	}
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		return PokeapiData{}, err
+		return PokeapiLocationAreaResp{}, err
 	}
 
-	var pokedata PokeapiData
+	var pokedata PokeapiLocationAreaResp
 	unmErr := json.Unmarshal(body, &pokedata)
 	if unmErr != nil {
-		return PokeapiData{}, err
+		return PokeapiLocationAreaResp{}, err
 	}
 
 	c.cache.Add(url, body)
