@@ -100,9 +100,33 @@ func commandCatch(config *Config, params ...string) error {
 	isCaught := pokeapi.AttemptCatchPokemon(data.BaseExperience)
 
 	if isCaught {
-		fmt.Printf("%v was caught\n", pokemon)
+		fmt.Printf("%v was caught!\n", pokemon)
+		config.pokeapiClient.CatchPokemon(pokemon, data)
 	} else {
-		fmt.Printf("%v escaped\n", pokemon)
+		fmt.Printf("%v escaped!\n", pokemon)
+	}
+
+	return nil
+}
+
+func commandInspect(config *Config, params ...string) error {
+	if len(params) != 1 {
+		return errors.New("you must provide a pokemon name")
+	}
+	pokemon := params[0]
+
+	err := config.pokeapiClient.InspectPokemon(pokemon)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func commandPokedex(config *Config, params ...string) error {
+	err := config.pokeapiClient.InspectPokedex()
+	if err != nil {
+		return err
 	}
 
 	return nil

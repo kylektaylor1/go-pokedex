@@ -1,5 +1,7 @@
 package pokeapi
 
+type Pokedex map[string]PokeapiPokemonResponse
+
 // we removed sprites
 type PokeapiPokemonResponse struct {
 	Abilities []struct {

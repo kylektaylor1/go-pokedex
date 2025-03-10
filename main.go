@@ -44,6 +44,10 @@ func main() {
 			commands["explore"].callback(config, args...)
 		case "catch":
 			commands["catch"].callback(config, args...)
+		case "inspect":
+			commands["inspect"].callback(config, args...)
+		case "pokedex":
+			commands["pokedex"].callback(config, args...)
 		default:
 			fmt.Println("Unknown command")
 		}
